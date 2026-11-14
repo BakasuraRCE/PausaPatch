@@ -1,9 +1,21 @@
 name: Release
 
 on:
+  # Tag pushed from the command line: `git push origin v1.0.0`.
   push:
     tags:
       - "v*"
+  # Release published from the GitHub UI. The tag it creates server-side does not
+  # emit a `push` event, so the trigger above never fires for it.
+  release:
+    types: [published]
+  # Manual recovery for a tag that was already published without a successful run.
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag to build and attach (for example v1.0.0)"
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -13,9 +25,14 @@ jobs:
     name: Build and attach the executable
     runs-on: windows-latest
 
+    env:
+      TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -28,7 +45,7 @@ jobs:
         run: |
           $line = Get-Content Cargo.toml | Where-Object { $_ -match '^version\s*=' } | Select-Object -First 1
           $version = (($line -replace '^version\s*=\s*"', '') -replace '".*$', '').Trim()
-          $tag = "${{ github.ref_name }}".TrimStart('v')
+          $tag = "$env:TAG".TrimStart('v')
           Write-Host "Cargo.toml: $version / tag: $tag"
           if ($version -ne $tag) {
             throw "Tag v$tag does not match Cargo.toml version $version. Bump the version before tagging."
@@ -38,8 +55,11 @@ jobs:
         run: cargo build --release --locked
 
       - name: Attach executable to the release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
+          tag_name: ${{ env.TAG }}
           files: target/release/pausapatch.exe
           fail_on_unmatched_files: true
-          generate_release_notes: true
+          # Only the push/dispatch paths may create the release; on a `release`
+          # event the notes are already there and must not be regenerated.
+          generate_release_notes: ${{ github.event_name != 'release' }}
