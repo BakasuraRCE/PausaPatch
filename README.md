@@ -162,12 +162,6 @@ Every step is logged, including `schtasks` enumerations and the administrator re
 ```powershell
 # Lists the update-related scheduled tasks, including duplicate rows reported by schtasks
 .\scripts\list-tasks.ps1
-
-# Shows service start types, DLL state, event 7040 history and repair tasks
-.\scripts\diagnose-wuauserv.ps1
-
-# Additionally enables registry auditing to identify what re-enables wuauserv
-.\scripts\diagnose-wuauserv.ps1 -EnableAudit
 ```
 
 ## Uninstalling
