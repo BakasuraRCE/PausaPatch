@@ -1,0 +1,45 @@
+[package]
+name = "pausapatch"
+version = "1.0.0"
+edition = "2024"
+rust-version = "1.95"
+description = "Pause and restore Windows 11 automatic updates from a native WinUI 3 tray app"
+authors = ["bakasura"]
+license = "MIT"
+repository = "https://github.com/BakasuraRCE/PausaPatch"
+homepage = "https://bakasura.im"
+build = "build.rs"
+
+[dependencies]
+windows-reactor = { git = "https://github.com/microsoft/windows-rs", rev = "0cfb708054687e5bc32c596a98cfcf1395344eab" }
+windows-registry = "0.100"
+windows-sys = { version = "0.61", features = [
+    "Win32_Foundation",
+    "Win32_Globalization",
+    "Win32_Graphics_Dwm",
+    "Win32_Graphics_Gdi",
+    "Win32_Security",
+    "Win32_Security_Authorization",
+    "Win32_System_DataExchange",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Memory",
+    "Win32_System_Ole",
+    "Win32_System_Services",
+    "Win32_System_Threading",
+    "Win32_UI_HiDpi",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging",
+] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+
+[build-dependencies]
+embed-resource = "3"
+windows-reactor-setup = "0.100.0"
+
+[profile.release]
+lto = true
+opt-level = "s"
+strip = true

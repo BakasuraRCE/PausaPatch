@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="852" viewBox="22 18 1180 852" font-family="Segoe UI, DejaVu Sans, Arial, sans-serif">
+<rect x="22" y="18" width="1180" height="852" rx="18" fill="#161616"/>
+<text x="30" y="52" font-size="27" font-weight="700" fill="#FFFFFF">Protection core — what PausaPatch changes</text>
+<text x="30" y="80" font-size="14" fill="#8F8F8F">Every step runs as SYSTEM through a temporary scheduled task. Each change is reversible and logged.</text>
+<text x="30" y="124" font-size="13" font-weight="700" fill="#8F8F8F" letter-spacing="1">COMPONENT</text>
+<text x="470" y="124" font-size="13" font-weight="700" fill="#6CCB5F" letter-spacing="1">PAUSED · PROTECTION ON</text>
+<text x="830" y="124" font-size="13" font-weight="700" fill="#FFB900" letter-spacing="1">RESTORED · PROTECTION OFF</text>
+<line x1="30" y1="140" x2="1190" y2="140" stroke="#3C3C3C" stroke-width="2"/>
+<rect x="30" y="168" width="410" height="108" rx="12" fill="#232323" stroke="#3C3C3C" stroke-width="2"/>
+<text x="52" y="206" font-size="17" font-weight="700" fill="#EDEDED">SERVICES</text>
+<text x="52" y="234" font-size="13" fill="#A8A8A8">wuauserv · UsoSvc · uhssvc</text>
+<text x="52" y="254" font-size="13" fill="#A8A8A8">WaaSMedicSvc</text>
+<rect x="470" y="168" width="330" height="108" rx="12" fill="#1E2A1E" stroke="#6CCB5F" stroke-width="2"/>
+<text x="492" y="212" font-size="15" font-weight="600" fill="#6CCB5F">Start = disabled</text>
+<text x="492" y="236" font-size="15" font-weight="400" fill="#6CCB5F">stopped · no recovery actions</text>
+<rect x="830" y="168" width="360" height="108" rx="12" fill="#2A2313" stroke="#FFB900" stroke-width="2"/>
+<text x="852" y="212" font-size="15" font-weight="600" fill="#FFB900">auto · auto · delayed-auto · demand</text>
+<text x="852" y="236" font-size="15" font-weight="400" fill="#FFB900">failure actions restored</text>
+<rect x="30" y="290" width="410" height="108" rx="12" fill="#232323" stroke="#3C3C3C" stroke-width="2"/>
+<text x="52" y="328" font-size="17" font-weight="700" fill="#EDEDED">CORE DLLs</text>
+<text x="52" y="356" font-size="13" fill="#A8A8A8">WaaSMedicSvc.dll · wuaueng.dll</text>
+<rect x="470" y="290" width="330" height="108" rx="12" fill="#1E2A1E" stroke="#6CCB5F" stroke-width="2"/>
+<text x="492" y="334" font-size="15" font-weight="600" fill="#6CCB5F">renamed to *_BAK.dll</text>
+<text x="492" y="358" font-size="15" font-weight="400" fill="#6CCB5F">owner reset to TrustedInstaller</text>
+<rect x="830" y="290" width="360" height="108" rx="12" fill="#2A2313" stroke="#FFB900" stroke-width="2"/>
+<text x="852" y="334" font-size="15" font-weight="600" fill="#FFB900">original names restored</text>
+<text x="852" y="358" font-size="15" font-weight="400" fill="#FFB900">owner reset to TrustedInstaller</text>
+<rect x="30" y="412" width="410" height="108" rx="12" fill="#232323" stroke="#3C3C3C" stroke-width="2"/>
+<text x="52" y="450" font-size="17" font-weight="700" fill="#EDEDED">POLICY</text>
+<text x="52" y="478" font-size="13" fill="#A8A8A8">HKLM\Software\Policies\Microsoft</text>
+<text x="52" y="498" font-size="13" fill="#A8A8A8">\Windows\WindowsUpdate\AU</text>
+<rect x="470" y="412" width="330" height="108" rx="12" fill="#1E2A1E" stroke="#6CCB5F" stroke-width="2"/>
+<text x="492" y="456" font-size="15" font-weight="600" fill="#6CCB5F">NoAutoUpdate = 1</text>
+<text x="492" y="480" font-size="15" font-weight="400" fill="#6CCB5F">automatic updates blocked</text>
+<rect x="830" y="412" width="360" height="108" rx="12" fill="#2A2313" stroke="#FFB900" stroke-width="2"/>
+<text x="852" y="456" font-size="15" font-weight="600" fill="#FFB900">NoAutoUpdate value removed</text>
+<rect x="30" y="534" width="410" height="108" rx="12" fill="#232323" stroke="#3C3C3C" stroke-width="2"/>
+<text x="52" y="572" font-size="17" font-weight="700" fill="#EDEDED">SCHEDULED TASKS</text>
+<text x="52" y="600" font-size="13" fill="#A8A8A8">InstallService · UpdateOrchestrator</text>
+<text x="52" y="620" font-size="13" fill="#A8A8A8">UpdateAssistant · WaaSMedic · WindowsUpdate</text>
+<rect x="470" y="534" width="330" height="108" rx="12" fill="#1E2A1E" stroke="#6CCB5F" stroke-width="2"/>
+<text x="492" y="578" font-size="15" font-weight="600" fill="#6CCB5F">~22 tasks disabled</text>
+<text x="492" y="602" font-size="15" font-weight="400" fill="#6CCB5F">same set the action enumerates</text>
+<rect x="830" y="534" width="360" height="108" rx="12" fill="#2A2313" stroke="#FFB900" stroke-width="2"/>
+<text x="852" y="578" font-size="15" font-weight="600" fill="#FFB900">same tasks re-enabled</text>
+<rect x="30" y="656" width="410" height="108" rx="12" fill="#232323" stroke="#3C3C3C" stroke-width="2"/>
+<text x="52" y="694" font-size="17" font-weight="700" fill="#EDEDED">UPDATE CACHE</text>
+<text x="52" y="722" font-size="13" fill="#A8A8A8">C:\Windows\SoftwareDistribution</text>
+<rect x="470" y="656" width="330" height="108" rx="12" fill="#1E2A1E" stroke="#6CCB5F" stroke-width="2"/>
+<text x="492" y="700" font-size="15" font-weight="600" fill="#6CCB5F">deleted</text>
+<text x="492" y="724" font-size="15" font-weight="400" fill="#6CCB5F">stale downloads and state removed</text>
+<rect x="830" y="656" width="360" height="108" rx="12" fill="#2A2313" stroke="#FFB900" stroke-width="2"/>
+<text x="852" y="700" font-size="15" font-weight="600" fill="#FFB900">recreated by Windows when needed</text>
+<rect x="30" y="804" width="1160" height="66" rx="12" fill="#1B2430" stroke="#4CC2FF" stroke-width="2"/>
+<text x="52" y="832" font-size="15" fill="#4CC2FF" font-weight="600">System boundary</text>
+<text x="52" y="854" font-size="13" fill="#A8A8A8">Protected by Windows ACLs: one UpdateOrchestrator task is retried by the elevated process; the user-session process only reads state and drives the UI.</text>
+</svg>

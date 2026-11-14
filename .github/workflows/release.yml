@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and attach the executable
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Check tag matches Cargo.toml
+        shell: pwsh
+        run: |
+          $line = Get-Content Cargo.toml | Where-Object { $_ -match '^version\s*=' } | Select-Object -First 1
+          $version = (($line -replace '^version\s*=\s*"', '') -replace '".*$', '').Trim()
+          $tag = "${{ github.ref_name }}".TrimStart('v')
+          Write-Host "Cargo.toml: $version / tag: $tag"
+          if ($version -ne $tag) {
+            throw "Tag v$tag does not match Cargo.toml version $version. Bump the version before tagging."
+          }
+
+      - name: Build
+        run: cargo build --release --locked
+
+      - name: Attach executable to the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: target/release/pausapatch.exe
+          fail_on_unmatched_files: true
+          generate_release_notes: true
